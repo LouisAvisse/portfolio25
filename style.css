@@ -1,0 +1,1861 @@
+/* -----------------------------------
+   Global Styles
+-------------------------------------*/
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  color: #161616;
+  height: 100%;
+  /* overflow: hidden; */ /* Retiré pour permettre le scroll normal */
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth; /* Transition fluide lors du scroll */
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* -----------------------------------
+   Loader Styles
+-------------------------------------*/
+
+/* Conteneur Principal du Loader */
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff; /* Fond blanc */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* Assure que le loader est au-dessus de tout */
+  transition: opacity 0.5s ease; /* Transition pour le fade-out */
+  opacity: 1; /* Visible par défaut */
+}
+
+/* Conteneur du Logo dans le Loader */
+.loader__logo {
+  /* Initialement très flou */
+  filter: blur(10px);
+  /* Animation de flou et rotation */
+  animation: loaderAnimation 1.5s forwards;
+}
+
+/* Keyframes pour l'Animation du Loader */
+@keyframes loaderAnimation {
+  0% {
+    filter: blur(10px);
+    transform: rotate(0deg);
+  }
+  100% {
+    filter: blur(0px);
+    transform: rotate(360deg);
+  }
+}
+
+/* Classe pour le Fade-Out du Loader */
+#loader.fade-out {
+  opacity: 0;
+}
+
+
+
+
+
+/* -----------------------------------
+   Scroll Container Styles
+-------------------------------------*/
+.scroll-container {
+  height: 100vh; /* Full viewport height */
+  overflow-y: scroll; /* Enable vertical scrolling */
+  scroll-snap-type: y mandatory; /* Enable vertical scroll snapping */
+}
+
+/* Hide scrollbar for a cleaner look (optional) */
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-container {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Container */
+.container {
+  margin: 0 32px; /* Marges générales de 32px */
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  z-index: 1000;
+}
+
+.navbar__logo {
+  margin-left: 32px; /* Aligner avec la marge globale */
+}
+
+.navbar__menu {
+  margin-right: 32px; /* Aligner avec la marge globale */
+}
+
+.navbar__menu ul {
+  list-style: none;
+  display: flex;
+  gap: 40px; /* Espacement entre "Work" et "Contact" */
+  margin: 0;
+  padding: 0;
+}
+
+.navbar__menu li a {
+  font-family: 'Cousine', monospace;
+  text-decoration: none;
+  color: #161616;
+  font-size: 12px;
+  font-weight: 400;
+  transition: color 0.6s ease;
+}
+
+
+
+
+
+
+
+
+
+
+.navbar__toggle {
+  display: none; /* Caché par défaut, visible sur mobile via media queries */
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  font-family: 'Cousine', monospace;  
+  color: black;
+  filter: blur(0.1px);
+}
+
+/* Menu Déroulant (mobile) */
+.navbar__menu--mobile {
+  display: none; /* Caché par défaut */
+  flex-direction: column;
+  position: absolute;
+  top: 60px; /* Positionné sous la navbar */
+  right: 32px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  
+}
+
+.navbar__menu--mobile li {
+  margin: 0;
+  
+}
+
+.navbar__menu--mobile a {
+  display: block;
+  padding: 12px 24px;
+  border-bottom: 1px solid #f0f0f0;
+  font-weight: 400;
+}
+
+.navbar__menu--mobile a:last-child {
+  border-bottom: none;
+}
+
+/* Animation d'apparition pour le menu mobile */
+.navbar__menu--mobile.show {
+  display: flex;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* Animation de fadeIn */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsivité */
+@media (max-width: 768px) {
+  /* Réduction de la taille du logo */
+  .navbar__logo img {
+    height: 40px;
+  }
+  
+  /* Alignement et marge du logo */
+  .navbar__logo {
+    margin-left: 16px; /* Aligne avec la marge globale */
+  }
+  
+  /* Masquer le menu desktop */
+  .navbar__menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    align-items: flex-end;
+    top: 60px; /* Positionné sous la navbar */
+    right: -32px; /* Ajustement pour un meilleur alignement sur mobile */
+    overflow: hidden;
+    width: auto;
+    height: auto;
+    z-index: 1001; /* Assure que le menu mobile est au-dessus de la navbar */
+  }
+
+  .navbar__menu ul {
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+    background: transparent;
+  }
+
+  .navbar__menu li{
+    backdrop-filter: blur(100px); /* Applique un flou au fond */
+    -webkit-backdrop-filter: blur(100px);
+  }
+
+  .navbar__menu a {
+    background: rgb(255, 255, 255); /* Fond blanc légèrement transparent */
+    width: 100%;
+    height: 100%;
+    padding: 10px 20px;
+    border: .8px solid #404040;
+    border-radius: 500px;
+    backdrop-filter: blur(100px); /* Applique un flou au fond */
+    -webkit-backdrop-filter: blur(100px);
+    align-self: flex-end;
+  }
+
+
+  /* Afficher le bouton Menu */
+  .navbar__toggle {
+    display: block;
+    font-size: 16px;
+    margin-right: 16px; /* Aligner avec la marge globale */
+    font-weight: 400; 
+  }
+  
+  /* Show the menu when 'show' class is added */
+  .navbar__menu.show {
+    display: flex;
+    animation: fadeIn 0.3s ease forwards;
+  }
+}
+
+/* Animation de fadeIn */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Sections */
+.section {
+  height: 100vh;
+  position: relative;
+  scroll-snap-align: start; /* Snap alignment */
+}
+
+.section--hero {
+  position: relative;
+  padding: 0 32px; /* Simplifié avec padding horizontal */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white; /* Default background */
+  overflow: hidden;
+}
+
+.section--work {
+  padding: 32px 32px; /* Marges de 32px sur les côtés */
+  background-color: #f5f5f5; /* Exemple de couleur de fond */
+  /* display: flex; */ /* Retiré */
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+/* Dynamic background effect */
+.section--hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--hero-bg, none);
+  background-size: cover;
+  background-position: var(--hero-bg-position, center); /* Utilisation de la variable */
+  background-repeat: no-repeat;
+
+  /* Variables pilotées par JS */
+  opacity: var(--hero-opacity, 0);
+  filter: var(--hero-filter, blur(20px));
+
+  transition: opacity 2s ease, filter 2s ease; /* Transition pour la position */
+  z-index: 0; /* Doit rester en dessous du contenu */
+}
+
+/* Hero Content */
+.hero__content {
+  position: relative;
+  z-index: 1; /* Assure que le texte reste au-dessus de l'image de fond */
+  display: flex;
+  justify-content: space-between; /* Espacement équilibré entre les blocs */
+  align-items: flex-start;
+  width: 100%;
+  transform: translateY(-40%); /* Décaler de 40% vers le haut */
+}
+
+/* Hero Block */
+.hero__block {
+  position: relative; /* Pour que les descriptions soient positionnées par rapport au bloc */
+  display: inline-block; /* Ajuste la largeur au contenu */
+  text-align: left;
+  width: fit-content;
+  margin-right: 20px; /* Espacement entre les blocs */
+}
+
+.hero__block:hover{
+  cursor: crosshair;
+}
+
+/* Titres */
+.hero__title {
+  display: inline-block; /* Ajuste la largeur au texte */
+  width: fit-content;
+  margin-bottom: 8px;
+}
+
+.hero__title h1 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 90px;
+  line-height: 80px;
+  letter-spacing: -6px;
+  color: #161616;
+  margin: 0;
+  white-space: nowrap; /* Évite que le texte se casse en plusieurs lignes */
+  transition: filter 0.3s ease, color 0.6s ease;
+}
+
+/* Flou pour les titres */
+.heavy-blur {
+  filter: blur(10px) !important; 
+}
+
+.light-blur {
+  filter: blur(1px) !important; /* Pas de flou lorsque light */
+}
+
+/* Descriptions */
+.hero__description {
+  text-align: justify;
+  white-space: normal; /* Permet les retours à la ligne */
+  overflow-wrap: break-word; /* Gère les mots trop longs */
+  opacity: 0; /* Caché par défaut */
+  pointer-events: none; /* Désactive les interactions quand caché */
+  transition: opacity 0.5s ease; /* Transition plus longue pour fade out/in */
+  /* Assure que les descriptions occupent leur espace sans décalage */
+  min-height: 40px; /* Ajuste selon la taille de tes descriptions */
+  position: absolute;
+  top: 100%; /* Positionne la description juste en dessous du titre */
+  left: 0;
+  width: 100%; /* Assure que la description prend la même largeur que le bloc */
+}
+
+.hero__description p {
+  font-family: 'Cousine', monospace;
+  font-size: 12px;
+  line-height: 12px;
+  text-align: justify;
+  color: #404040;
+  margin-top: 8px;
+  width: 100%; /* Assure la largeur */
+  white-space: normal; /* Permet le retour à la ligne si nécessaire */
+  transition: color 0.6s ease; /* Pour changement de couleur en hover */
+}
+
+/* Hero Logo */
+.hero__logo {
+  position: fixed;
+  bottom: 20px; /* Ajoute un peu d'espace par rapport au bas */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2; /* Plus haut que ::after et le contenu */
+  filter: blur(0.3px);
+}
+
+.hero__logo button {
+  background: none; /* Retire le style par défaut du bouton */
+  border: none;     /* Retire la bordure par défaut du bouton */
+  padding: 0;       /* Retire le padding par défaut du bouton */
+  cursor: pointer;  /* Change le curseur en pointeur pour indiquer l'interactivité */
+}
+
+.hero__logo svg {
+  width: 32px;
+  height: 32px;
+  transition: fill 0.6s ease; /* Transition pour le changement de couleur */
+}
+
+/* -----------------------------------
+   Couleur en blanc au hover
+-------------------------------------*/
+/* On ajoute body.hero--hovered dès qu'on survole un .hero__block */
+body.hero--hovered {
+  /* Tout le texte par défaut en blanc */
+  color: #ffffff;
+}
+
+body.hero--hovered a {
+  color: #ffffff;
+}
+
+body.hero--hovered .hero__title h1 {
+  color: #ffffff !important; /* On force si besoin */
+  /* Le flou est géré via les classes JS */
+}
+
+body.hero--hovered .hero__description p {
+  color: #ffffff;
+}
+
+body.hero--hovered .navbar__menu li a {
+  color: #ffffff;
+}
+
+body.hero--hovered .navbar__logo svg path,
+body.hero--hovered .hero__logo svg path {
+  fill: #ffffff;
+}
+
+.work-hovered:hover .hero__logo svg path {
+  fill: #ffffff;
+}
+
+/* -----------------------------------
+   Ajustements pour éviter les décalages
+-------------------------------------*/
+/* Assurer que les titres ont une largeur constante */
+.hero__title h1 {
+  display: inline-block;
+}
+
+/* Transition pour les filtres des titres */
+/* Déjà défini dans .hero__title h1 */
+
+/* Transition pour les couleurs en hover */
+body.hero--hovered .hero__title h1,
+body.hero--hovered .hero__description p,
+body.hero--hovered .navbar__menu li a,
+body.hero--hovered .navbar__logo svg path,
+body.hero--hovered .hero__logo svg path {
+  transition: color 0.6s ease, fill 0.6s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Adaptations pour les appareils mobiles */
+/* Adaptations pour les appareils mobiles */
+@media (max-width: 768px) {
+
+
+
+  .section--hero {
+    padding: 0;
+    position: relative; /* Nécessaire pour positionner le pseudo-élément */
+    overflow: hidden; /* Pour s'assurer que le pseudo-élément ne dépasse pas */
+    background-color: #A7F418;
+    background-image: url('/imagespf/mobilehero2.png');
+    background-size: cover;
+  }
+
+  /* Disposer les blocs Hero en colonne et aligner à gauche */
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligner les blocs à gauche */
+    justify-content: flex-end;
+    padding: 16px; /* Ajustez le padding selon vos besoins */
+    height: 100vh; /* Assure que la section prend toute la hauteur */
+    transform: translateY(0%); /* Décaler de 0% vers le haut */
+    padding-bottom: 80px;
+  }
+
+  .hero__block {
+    width: 100%;
+    margin-right: 0;
+    text-align: left; /* Aligner le texte à gauche */
+    position: relative; /* Pour que les descriptions soient positionnées par rapport au bloc */;
+    cursor: pointer; /* Indiquer interactivité */
+  }
+
+  /* Disposer la description sous le titre avec largeur limitée */
+  .hero__description {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%; /* Occuper la même largeur que le bloc */
+    max-width: calc(100% - 32px); /* Assure une marge de 16px de chaque côté */
+    opacity: 0; /* Caché par défaut */
+    pointer-events: none; /* Désactive les interactions quand caché */
+    transition: opacity 0.5s ease, color 0.5s ease;
+    margin-top: 8px; /* Espacement entre le titre et la description */
+    padding-right: 16px; /* Marge de sécurité à droite */
+    color: #000000; /* Texte en noir par défaut */
+    word-wrap: break-word; /* Coupe les mots longs */
+    overflow-wrap: break-word; /* Compatibilité avec différents navigateurs */
+    display: none;
+  }
+
+  .hero__description p {
+    font-size: 14px;
+    line-height: 14px;
+    color: #00000000; /* Texte en noir par défaut */
+  }
+
+  /* Flou et couleur des titres par défaut sur mobile */
+  .hero__title h1 {
+    filter: blur(10px); /* Flou par défaut */
+    color: #000000 !important; /* Texte noir par défaut */
+    font-size: 48px; /* Taille réduite pour mobile */
+    line-height: 1.2;
+    letter-spacing: -3px;
+    transition: filter 0.3s ease, color 0.6s ease; /* Transition pour le changement de couleur et de flou */
+  }
+
+  .hero__title {
+    display: none;
+  }
+
+  /* Lorsque le bloc est actif */
+  .section--hero.hero--active .hero__title h1 {
+    filter: blur(0px); /* Titre clair */
+    color: #ffffff !important; /* Texte noir après interaction */
+  }
+
+  .section--hero.hero--active .hero__description {
+    opacity: 1; /* Afficher la description */
+    pointer-events: auto; /* Activer les interactions */
+    color: #ffffff; /* Texte noir après interaction */
+  }
+
+  /* Assurer que l'image de fond couvre toute la section (conserver si nécessaire) */
+  .section--hero::after {
+    content: ''; /* Nécessaire pour afficher le pseudo-élément */
+    position: absolute; /* Positionnement absolu par rapport à .section--hero */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--hero-bg, none); /* Utilise la variable CSS pour l'image de fond */
+    background-size: cover; /* Assure que l'image couvre toute la section */
+    background-position: var(--hero-bg-position, center); /* Positionnement dynamique */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image */
+    opacity: 0; /* Caché par défaut */
+    filter: blur(20px); /* Flou par défaut */
+    transition: opacity 2s ease, filter 2s ease; /* Assurer la transition correcte */
+    z-index: -1; /* Derrière le contenu */
+  }
+
+  /* Lorsque la section Hero est active */
+  .section--hero.hero--active::after {
+    opacity: 1; /* Afficher l'image de fond */
+    filter: blur(0px); /* Réduire le flou */
+  }
+
+  /* Optionnel : Ajuster la taille des titres sur mobile */
+  .hero__title h1 {
+    font-size: 48px; /* Taille réduite pour mobile */
+    line-height: 1.2;
+    letter-spacing: -3px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -----------------------------------
+   Section Work Styles
+-------------------------------------*/
+
+/* -----------------------------------
+   Conteneur Principal de la Section Work
+-------------------------------------*/
+.section--work {
+  position: relative; /* Pour positionner absolument .work__background */
+  height: 100vh; /* Occupe toute la hauteur de la vue */
+  width: 100%;
+  background-color: #ffffff; /* Arrière-plan par défaut */
+  overflow: hidden; /* Empêche le débordement */
+  display: flex;
+  justify-content: flex-start; /* Aligne le contenu horizontalement à gauche */
+  align-items: center; /* Centre verticalement */
+  box-sizing: border-box;
+}
+
+/* -----------------------------------
+   Arrière-plan Dynamique de la Section Work
+-------------------------------------*/
+/* -----------------------------------
+   Transition Douce pour l'Arrière-Plan Dynamique
+-------------------------------------*/
+
+.work__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1; /* Positionné derrière le contenu */
+  opacity: 0; /* Invisible par défaut */
+  transition: opacity 1s ease-in-out; /* Transition pour l'opacité */
+}
+
+/* Visible lorsque la classe 'visible' est ajoutée */
+.work__background.visible {
+  opacity: 1;
+}
+
+/* -----------------------------------
+   Contenu de la Section Work
+-------------------------------------*/
+.work__content {
+  position: relative;
+  z-index: 2; /* Positionné au-dessus de l'arrière-plan */
+  width: 100%;
+  max-width: 50%;
+}
+
+/* -----------------------------------
+   Liste des Projets
+-------------------------------------*/
+.work__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* Empile les projets verticalement */
+  gap: 0px; /* Espacement entre les projets */
+  height: 100%; /* Occupe toute la hauteur disponible */
+  overflow: hidden; /* Empêche le débordement interne */
+  padding-bottom: 8px;
+}
+
+
+
+/* -----------------------------------
+   Item de la Liste (Chaque Projet)
+-------------------------------------*/
+.work__item {
+  transition: filter 0.5s ease;
+  cursor: pointer;
+  padding-bottom: 8px;
+}
+
+/* -----------------------------------
+   Lien de Chaque Projet
+-------------------------------------*/
+.work__link {
+  text-decoration: none;
+  color: #161616;
+  display: inline-flex; /* Permet de gérer la largeur en fonction du contenu */
+  flex-direction: column;
+  padding-left: 10px; /* AJOUTÉ : Padding pour éviter la coupure */
+  padding-right: 15px; /* AJOUTÉ : Padding pour éviter la coupure */
+  box-sizing: border-box; /* AJOUTÉ : Inclure le padding dans la largeur totale */
+}
+
+/* -----------------------------------
+   Titre du Projet
+-------------------------------------*/
+.work__title {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  letter-spacing: -3px;
+  margin: 0 0 -10px 0;
+  transition: color 0.3s ease;
+  filter: blur(0.6px);
+}
+
+/* -----------------------------------
+   Catégories du Projet
+-------------------------------------*/
+.work__categories {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* -----------------------------------
+   Chaque Catégorie (Pill)
+-------------------------------------*/
+.work__category {
+  font-family: 'Cousine', monospace;  
+  padding: 4px 8px;
+  font-size: 10px;
+  line-height: 1px;
+  letter-spacing: -1px;
+  white-space: nowrap;
+  border-radius: 100px;
+  border: 0.8px solid black;
+  opacity: 0.7;
+}
+
+/* -----------------------------------
+   Effet de Hover sur un Projet
+-------------------------------------*/
+.work__link:hover .work__category {
+  color: #ffffff; /* Changement de couleur au hover */
+  border: 0.8px solid #ffffff; /* Changement de bordure au hover */
+  transition: border 0s; /* Transition instantanée pour la bordure */
+}
+
+.work__link:hover .work__title,
+.work__link:hover .work__category {
+  color: #ffffff; /* Changement de couleur au hover */
+}
+
+/* -----------------------------------
+   Classe pour Flouter les Autres Projets
+-------------------------------------*/
+.blurred {
+  filter: blur(5px);
+  transition: filter 0.5s ease;
+}
+
+/* -----------------------------------
+   Classe pour Changer la Couleur des Titres et Catégories en Blanc
+-------------------------------------*/
+.work-hovered .work__title,
+.work-hovered .work__category {
+  color: #ffffff;
+}
+
+.work-hovered .work__category{
+  border: 0.8px solid #ffffff;
+}
+
+/* -----------------------------------
+   Classe pour Changer la Couleur des Liens de la Navbar en Blanc
+-------------------------------------*/
+.work-hovered .navbar a {
+  color: #ffffff;
+}
+
+/* -----------------------------------
+   Classe pour Changer la Couleur du Logo SVG en Blanc
+-------------------------------------*/
+/* AJOUTÉ */
+.work-hovered .navbar__logo svg path {
+  fill: #ffffff;
+  transition: fill 0.3s ease;
+}
+
+/* -----------------------------------
+   Responsivité
+-------------------------------------*/
+@media (max-width: 768px) {
+
+
+  .work__content {
+    max-width: 100%; /* Ajuste la largeur au contenu */
+  
+    
+  }
+  .section--work {
+    padding: 0px 16px; /* Réduction des paddings sur petits écrans */
+  }
+
+  .work__list {
+    width: 100%;
+    overflow: visible;
+  }
+
+
+  
+  .work__title {
+    font-size: 32px; /* Réduction de la taille des titres */
+    letter-spacing: -2px;
+    margin: 0 0 -8px 0;
+  }
+  
+  .work__category {
+    font-size: 10px; /* Réduction de la taille des catégories */
+  }
+
+
+  
+  /* AJOUTÉ : Ajuster le padding pour éviter la coupure sur le côté gauche */
+  .work__link {
+    padding: 0;
+
+  }
+}
+
+/* -----------------------------------
+   Assignation des Images de Fond par Projet avec Transitions
+-------------------------------------*/
+
+/* Projet 1 - Desktop */
+.work__item:nth-child(1):hover ~ .work__background {
+  background-image: url('/imagespf/work1-desktop.jpg');
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+/* Projet 1 - Mobile */
+@media (max-width: 768px) {
+  .work__item:nth-child(1):hover ~ .work__background {
+    background-image: url('/imagespf/work1-mobile.jpg');
+  }
+}
+
+/* Projet 2 - Desktop */
+.work__item:nth-child(2):hover ~ .work__background {
+  background-image: url('/imagespf/work2-desktop.jpg');
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+/* Projet 2 - Mobile */
+@media (max-width: 768px) {
+  .work__item:nth-child(2):hover ~ .work__background {
+    background-image: url('/imagespf/work2-mobile.jpg');
+  }
+}
+
+/* Ajoutez ici des sélecteurs similaires pour les projets supplémentaires */
+
+/* -----------------------------------
+   Désactivation de l'Arrière-Plan lors du Retrait du Hover
+-------------------------------------*/
+.work__item:not(:hover) ~ .work__background {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+/* -----------------------------------
+   COUCOU
+-------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -----------------------------------
+   Section About Styles
+-------------------------------------*/
+
+/* Conteneur Principal de la Section About */
+.section--about {
+  position: relative;
+  height: 100vh; /* Hauteur de la vue */
+  width: 100%;
+  background-color: #ffffff; /* Arrière-plan blanc */
+  padding: 32px; /* Marges de 32px sur les côtés */
+  box-sizing: border-box;
+  display: flex;
+  align-items: center; /* Centre verticalement le contenu */
+  justify-content: space-between; /* Centre horizontalement le contenu */
+  overflow: hidden;
+}
+
+/* Contenu de la Section About */
+.about__container {
+  display: flex;
+  width: 100%;
+  height: 60%;
+  gap: 13%;
+  
+}
+
+/* Partie Texte de la Section About */
+.about__text {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+  justify-content: space-between; /* Espace égal entre les rangées */
+}
+
+/* Rangées de Blocs */
+.about__row {
+  display: flex;
+  justify-content: space-between; /* Espace égal entre les blocs */
+  align-items: flex-start; /* Aligne les blocs en haut */
+}
+
+/* Blocs de Texte Individuels */
+.about__block {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Titres des Blocs */
+.about__title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  filter: blur(0.5px);
+  letter-spacing: -3px;
+  font-size: 40px;
+  line-height: 40px;
+  margin: 0;
+  width: fit-content; /* Ajuste la largeur au contenu */
+
+}
+
+
+/* Paragraphes des Blocs */
+.about__paragraph {
+  font-family: 'Cousine', monospace;
+  font-size: 12px;
+  line-height: 12px;
+  text-align: justify;
+  color: #404040;
+  margin: 0;
+  width: fit-content; /* Même largeur que le titre */
+}
+
+/* Partie Image de la Section About */
+.about__image {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+}
+
+.about__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ajuste l'image pour couvrir le conteneur sans déformer */
+}
+
+/* Sélectionner l'image dans la section About */
+.about__image img {
+  /* Définir la transition pour l'effet de filtre */
+  transition: filter 2s ease; /* Vous pouvez modifier 0.5s pour ajuster la durée de la transition */
+}
+
+/* Appliquer le flou lors du survol */
+.about__image img:hover {
+  filter: blur(8px); /* Vous pouvez modifier 5px pour ajuster l'intensité du flou */
+}
+
+
+/* Responsivité */
+@media (max-width: 768px) {
+  .section--about {
+    padding: 16px; /* Réduction des paddings sur très petits écrans */
+    height: 100vh; 
+  }
+  
+  .about__container {
+    height: 100%; /* Permet à la hauteur de s'adapter au contenu */
+    flex-direction: column;
+    width: 100%;
+
+    gap: 0;
+  }
+
+  .about__block {
+    gap: 16px;
+  }
+  
+  .about__text {
+    margin-top: 32px;
+
+    width: 100%;
+    height: 100%;
+    order: 2;
+
+    align-items: space-around;
+    justify-content: flex-start; /* Espace égal entre les rangées */
+  }
+  
+ 
+  
+  .about__title {
+    font-size: 28px; /* Taille de police réduite */
+    line-height: 20px;
+    letter-spacing: -2px; /* Ajustement de l'espacement des lettres */
+    filter: blur(0.5);
+  }
+  
+  .about__paragraph {
+    font-size: 10px; /* Taille de police adaptée au mobile */
+    line-height: 10px;
+    padding-bottom: 32px;
+  }
+
+  .about__image {
+    width: 100%;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+
+    order: 1;
+  }
+
+  .about__image img {
+    width: 100%;
+    height: 100%;
+  }
+  
+}
+
+.about__paragraph a {
+  text-decoration: none;
+  padding: 5px 10px 5px 10px;
+  background-color: #1e1e1e;
+  color: rgb(255, 255, 255);
+  border: #161616 .8px solid;
+  border-radius: 4px;
+}
+
+.about__paragraph a:hover {
+  text-decoration: none;
+  padding: 5px 10px 5px 10px;
+  background-color: #ffffff;
+  color: rgb(35, 35, 35);
+  border: #161616 .8px solid;
+  border-radius: 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Paragraphes des Blocs */
+/* --- Section de couverture --- */
+
+.navbar--white {
+  background-color: transparent; /* Ou une couleur personnalisée */
+  transition: background-color 0.3s ease-in-out;
+}
+
+.navbar--transparent {
+  background-color: transparent;
+}
+.navbar--solid {
+  background-color: #ffffff;
+}
+
+
+.cover {
+  height: 70vh;
+  width: 100%;
+  background-image: url('imagespf/work1.png'); /* Remplace par le chemin de ton image */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.covercase2 {
+  height: 70vh;
+  width: 100%;
+  background-image: url('imagespf/JLC/cover.png'); /* Remplace par le chemin de ton image */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.covercase3 {
+  height: 70vh;
+  width: 100%;
+  background-image: url('imagespf/work4.png'); /* Remplace par le chemin de ton image */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+
+
+.cover__content {
+  padding: 32px;
+  color: #ffffff;
+}
+
+.cover__title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  letter-spacing: -4px;
+  font-size: 64px;
+  line-height: 64px;
+  margin: 0;
+  filter: blur(.5px);
+}
+
+.cover__categories {
+  font-family: 'Cousine', monospace;
+  font-size: 16px;
+  margin: 0;
+}
+
+.cover__content .work__categories .work__category{
+  border: white .8px solid;
+  font-size: 12px;
+  line-height: 10px;
+}
+
+/* --- Section Projet-Problème-Contexte --- */
+.details {
+  min-height: 30vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0px 32px;
+  box-sizing: border-box;
+}
+
+.blocks {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.details__block {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  max-width: 30%;
+  justify-content: flex-start;
+}
+
+.details__block h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: -2px;
+  margin: 0;
+  margin-bottom: 16px;
+  filter: blur(.3px);
+}
+
+.details__block p {
+  font-family: 'Cousine', monospace;
+  font-size: 12px;
+  margin: 4px 0;
+  line-height: 16px
+}
+
+/* --- Section Images Réutilisées --- */
+.images-row {
+  height: 70vh;
+  display: flex;
+  justify-content: space-between;
+  gap: 0px;
+}
+
+.image-block {
+  flex: 1;
+  position: relative; /* Nécessaire pour les enfants absolus */
+  background-color: #f5f5f5; /* Placeholder */
+  background-size: cover;
+  background-position: center;
+  overflow: hidden; /* Empêche les débordements */
+}
+
+.image-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Les images s'adaptent sans déformer */
+  position: absolute; /* S'assure que l'image est contenue dans le bloc */
+  top: 0;
+  left: 0;
+}
+
+/* --- Images en mode galerie --- */
+.image-block img {
+  cursor: zoom-in; /* Change le curseur en loupe */
+  transition: transform 0.3s ease; /* Effet de zoom au survol */
+}
+
+.image-block img:hover {
+  transform: scale(1.05); /* Légère mise en avant au survol */
+}
+
+/* --- Modale --- */
+.modal {
+  display: none; /* Cachée par défaut */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Fond sombre semi-transparent */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+}
+
+.close-modal {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+
+
+/* --- Section Processus --- */
+.process {
+  display: flex;
+  height: 30vh;
+  padding: 32px;
+  width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.zone-process
+{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  box-sizing: border-box;
+  gap: 16px;
+}
+
+.process__title {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: -2px;
+  margin: 0;
+  margin-bottom: 8px;
+  filter: blur(.3px);
+}
+
+.process__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 12px;
+  justify-content: space-between;
+}
+
+.process__steps p {
+  border: #000 0.8px solid;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.process__steps p {
+  font-family: 'Cousine', monospace;
+  margin: 0;
+}
+
+/* --- Section Titre Uniquement --- */
+.section-title {
+  min-height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px;
+  box-sizing: border-box;
+  gap: 16px;
+}
+
+.section-txt{
+
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  width: 100%;
+}
+
+.section-title p {
+  font-family: 'Cousine', monospace;
+  font-size: 12px;
+  line-height: 16px;
+  margin: 0;
+  text-align: justify;
+  max-width: 50%;
+}
+
+.section-title h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: -2px;
+  margin: 0;
+  margin-bottom: 8px;
+  filter: blur(.3px);
+}
+
+/* --- Footer --- */
+.footer {
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  background-color: #ffffff;
+}
+
+.footer__buttons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.footer__btn {
+  padding: 5px 10px;
+  font-family: 'Cousine', monospace;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.footer__btn--black {
+  background-color: #000;
+  color: #fff;
+  border: #000 1px solid; 
+  box-sizing: border-box;
+}
+
+.footer__btn--black:hover {
+  background-color: #fff;
+  color: #000;
+  border: #000 1px solid;
+  box-sizing: border-box;
+}
+
+.footer__btn--white {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+  box-sizing: border-box;
+}
+
+.footer__btn--white:hover {
+  background-color: #000;
+  color: #FFF;
+  border: 1px solid #000;
+}
+
+.footer__logo {
+  text-align: center;
+  background: none;
+  border: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+
+
+  .navbar--white {
+    background-color: transparent; /* Ou une couleur personnalisée */
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .navbar--transparent {
+    background-color: transparent;
+  }
+  .navbar--solid {
+    background-color: #ffffff;
+  }
+  
+  
+  .cover {
+    height: 100vh;
+    width: 100%;
+    background-image: url('imagespf/work1.png'); /* Remplace par le chemin de ton image */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+  
+  .covercase2 {
+    height: 100vh;
+    width: 100%;
+    background-image: url('imagespf/JLC/cover.png'); /* Remplace par le chemin de ton image */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+  
+  .covercase3 {
+    height: 100vh;
+    width: 100%;
+    background-image: url('imagespf/work4.png'); /* Remplace par le chemin de ton image */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+  
+  
+  
+  .cover__content {
+    padding: 32px;
+    color: #ffffff;
+  }
+  
+  .cover__title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    letter-spacing: -4px;
+    font-size: 56px;
+    line-height: 56px;
+    margin: 0;
+    filter: blur(.5px);
+  }
+  
+  .cover__categories {
+    font-family: 'Cousine', monospace;
+    font-size: 16px;
+    margin: 0;
+  }
+  
+  .cover__content .work__categories .work__category{
+    border: white .8px solid;
+    font-size: 12px;
+    line-height: 10px;
+  }
+  
+  /* --- Section Projet-Problème-Contexte --- */
+  .details {
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px;
+    box-sizing: border-box;
+  }
+  
+  .blocks {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 32px;
+    box-sizing: border-box;
+    padding-bottom: 32px;
+  }
+  
+  .details__block {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    min-width: 100%;
+  }
+  
+  .details__block h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: -2px;
+    margin: 0;
+    margin-bottom: 16px;
+    filter: blur(.3px);
+  }
+  
+  .details__block p {
+    font-family: 'Cousine', monospace;
+    font-size: 12px;
+    margin: 4px 0;
+    line-height: 16px
+  }
+  
+  /* --- Section Images Réutilisées --- */
+  .images-row {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0px;
+  }
+  
+  .image-block {
+    flex: 1;
+    position: relative; /* Nécessaire pour les enfants absolus */
+    background-color: #f5f5f5; /* Placeholder */
+    background-size: cover;
+    background-position: center;
+    overflow: hidden; /* Empêche les débordements */
+  }
+  
+  .image-block img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Les images s'adaptent sans déformer */
+    position: absolute; /* S'assure que l'image est contenue dans le bloc */
+    top: 0;
+    left: 0;
+  }
+  
+  /* --- Images en mode galerie --- */
+  .image-block img {
+    cursor: zoom-in; /* Change le curseur en loupe */
+    transition: transform 0.3s ease; /* Effet de zoom au survol */
+  }
+  
+  .image-block img:hover {
+    transform: scale(1.05); /* Légère mise en avant au survol */
+  }
+  
+  /* --- Modale --- */
+  .modal {
+    display: none; /* Cachée par défaut */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fond sombre semi-transparent */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+  }
+  
+  .close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+  }
+  
+  
+  
+  /* --- Section Processus --- */
+  .process {
+    display: flex;
+    height: auto;
+    padding: 32px;
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+    align-items: center;
+  }
+  
+  .zone-process
+  {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+    box-sizing: border-box;
+    gap: 16px;
+  }
+  
+  .process__title {
+    font-family: 'Inter', sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: -2px;
+    margin: 0;
+    margin-bottom: 8px;
+    filter: blur(.3px);
+  }
+  
+  .process__steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 12px;
+    justify-content: space-between;
+  }
+  
+  .process__steps p {
+    border: #000 0.8px solid;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .process__steps p {
+    font-family: 'Cousine', monospace;
+    margin: 0;
+  }
+  
+  /* --- Section Titre Uniquement --- */
+  .section-title {
+    min-height: 30vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 16px;
+    padding-bottom: 64px;
+    padding-top: 32px;
+    box-sizing: border-box;
+    gap: 16px;
+  }
+  
+  .section-txt{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 32px;
+    width: 100%;
+  }
+  
+  .section-title p {
+    font-family: 'Cousine', monospace;
+    font-size: 12px;
+    line-height: 16px;
+    margin: 0;
+    text-align: justify;
+    max-width: 100%;
+  }
+  
+  .section-title h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: -2px;
+    margin: 0;
+    margin-bottom: 8px;
+    filter: blur(.3px);
+  }
+  
+  /* --- Footer --- */
+  .footer {
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    background-color: #ffffff;
+  }
+  
+  .footer__buttons {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .footer__btn {
+    padding: 5px 10px;
+    font-family: 'Cousine', monospace;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .footer__btn--black {
+    background-color: #000;
+    color: #fff;
+    border: #000 1px solid; 
+    box-sizing: border-box;
+  }
+  
+  .footer__btn--black:hover {
+    background-color: #fff;
+    color: #000;
+    border: #000 1px solid;
+    box-sizing: border-box;
+  }
+  
+  .footer__btn--white {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    box-sizing: border-box;
+  }
+  
+  .footer__btn--white:hover {
+    background-color: #000;
+    color: #FFF;
+    border: 1px solid #000;
+  }
+  
+  .footer__logo {
+    text-align: center;
+    background: none;
+    border: none;
+  }
+}
